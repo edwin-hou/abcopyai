@@ -1,4 +1,4 @@
-var socket = io()
+var socket = io({autoConnect: false})
 //console.log(socket)
 socket.on('connect', function () {
 socket.emit("get_data", "edwin.s.hou@gmail.com")
