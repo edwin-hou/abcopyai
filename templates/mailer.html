@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f0f2f5;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
+      .container {
+        background-color: white;
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        width: 400px;
+        animation: fadeIn 1s ease-in-out;
+      }
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(-20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      .container div {
+        margin-bottom: 10px;
+        font-weight: bold;
+        color: #333;
+      }
+      .container input,
+      .container textarea,
+      .container button {
+        width: calc(100% - 22px);
+        padding: 10px;
+        margin-bottom: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-sizing: border-box;
+        transition: all 0.3s ease;
+      }
+      .container input:focus,
+      .container textarea:focus {
+        border-color: #007BFF;
+        box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+        outline: none;
+      }
+      .container button {
+        background-color: #007BFF;
+        color: white;
+        border: none;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+      .container button:hover {
+        background-color: #0056b3;
+      }
+      .container button:active {
+        background-color: #004494;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div>Enter your subject:</div>
+      <input id="subject" type="text">
+
+      <div>Enter your email:</div>
+      <textarea id="content" rows="5" cols="50"></textarea>
+
+      <div>Enter your mailing list (separate using commas):</div>
+      <input id="list" type="text">
+
+      <div>Login to Google account below:</div>
+      <button id="login">Click me to login!!</button>
+
+      <button id="submit">Click to submit</button>
+    </div>
+
+    <script type="module" src="static/javascript/main.js"></script>
+    <script src="https://cdn.socket.io/4.4.1/socket.io.min.js" integrity="sha384-fKnu0iswBIqkjxrhQCTZ7qlLHOFEgNkRmK2vaO/LbTZSXdJfAu6ewRBdwHPhBo/H" crossorigin="anonymous"></script>
+  </body>
+</html>
