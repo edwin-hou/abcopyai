@@ -1,4 +1,4 @@
-var socket = io({autoConnect: false})
+var socket = io('http://54.172.23.104/', { path: '/server', autoConnect: false})
 console.log(socket)
 socket.on('connect', function () {
 console.log("a")
