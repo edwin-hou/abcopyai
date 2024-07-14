@@ -1,6 +1,7 @@
 var socket = io.connect('http://54.172.23.104', { path: '/'})
 
 socket.on('connect', function () {
+console.log('a')
 socket.emit("get_data", "edwin.s.hou@gmail.com")
 socket.on('data', (emails)=>{
     for(let i =0; i< emails.length; i++){
