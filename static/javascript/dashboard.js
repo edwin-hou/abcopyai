@@ -1,6 +1,7 @@
 var socket = io({autoConnect: false})
 console.log(socket)
 socket.on('connect', function () {
+console.log("a")
 socket.emit("get_data", "edwin.s.hou@gmail.com")
 socket.on('data', (emails)=>{
     console.log(emails)
