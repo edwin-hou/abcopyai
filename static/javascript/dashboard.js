@@ -1,4 +1,6 @@
-var socket = io('ws://54.172.23.104/', { path: '/', autoConnect: false})
+const io = require("socket.io-client");
+
+var socket = io('http://54.172.23.104/', { path: '/', autoConnect: false})
 console.log(socket)
 socket.on('connect', function () {
 console.log("a")

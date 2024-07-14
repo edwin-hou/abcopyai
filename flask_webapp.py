@@ -16,6 +16,7 @@ def mailer():
 
 @app.route('/dashboard')
 def dashboard():
+    print('dashboard loaded')
     return render_template('dashboard.html')
 
 
