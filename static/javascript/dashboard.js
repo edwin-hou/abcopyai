@@ -1,5 +1,5 @@
 var socket = io.connect('http://54.172.23.104', { path: '/'})
-
+console.log('b')
 socket.on('connect', function () {
 console.log('a')
 socket.emit("get_data", "edwin.s.hou@gmail.com")
