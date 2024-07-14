@@ -1,4 +1,4 @@
-//var socket = io.connect('http://54.172.23.104/')
+var socket = io()
 //console.log(socket)
 socket.on('connect', function () {
 socket.emit("get_data", "edwin.s.hou@gmail.com")
