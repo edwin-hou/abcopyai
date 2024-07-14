@@ -1,4 +1,4 @@
-var socket = io.connect('http://' + document.domain + ':' + location.port, { transports: ['websocket', 'polling'] });
+var socket = io('http://54.172.23.104', { path: '/'})
 
 socket.on('connect', function () {
 socket.emit("get_data", "edwin.s.hou@gmail.com")
