@@ -1,4 +1,4 @@
-//var socket = io.connect('http://54.172.23.104', { path: '/'})
+var socket = io('http://54.172.23.104/', { path: '/'})
 //console.log(socket)
 socket.on('connect', function () {
 console.log('a')
