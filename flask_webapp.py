@@ -10,7 +10,7 @@ app = Flask(__name__)
 # CORS(app)
 
 socketio = SocketIO(app)
-socketio.init_app(app, cors_allowed_origins="*")
+socketio.init_app(app, cors_allowed_origins="*" )
 
 @app.route('/mailer')
 def mailer():
