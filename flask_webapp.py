@@ -7,10 +7,10 @@ import json
 from flask_cors import CORS
 
 app = Flask(__name__)
-CORS(app)
+# CORS(app)
 
 socketio = SocketIO(app)
-
+socketio.init_app(app, cors_allowed_origins="*")
 
 @app.route('/mailer')
 def mailer():
