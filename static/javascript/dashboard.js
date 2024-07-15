@@ -1,4 +1,4 @@
-var socket = io.connect()
+var socket = io.connect({'force new connection': true})
 console.log(new Date().toLocaleString(), socket)
 socket.on('connect', function () {
     console.log(new Date().toLocaleString(), "connected")
