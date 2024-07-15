@@ -1,8 +1,9 @@
-var socket = io('http://54.172.23.104/')
+var socket = io.connect('http://54.172.23.104/')
 console.log(new Date().toLocaleString(), socket)
 socket.on('connect', function () {
 console.log(new Date().toLocaleString(), "connected")
 socket.emit("get_data", "edwin.s.hou@gmail.com")
+console.log(new Date().toLocaleString(), "emitted")
 socket.on('data', (emails)=>{
     console.log(new Date().toLocaleString(), emails)
     for(let i =0; i< emails.length; i++){
