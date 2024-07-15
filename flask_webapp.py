@@ -4,8 +4,11 @@ from send_email import send_email
 from authenticate import authenticate
 from copy_ai import generate_copies
 import json
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app)
+
 socketio = SocketIO(app)
 
 
