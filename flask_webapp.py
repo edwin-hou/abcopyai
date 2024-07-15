@@ -85,4 +85,4 @@ def handle(stuff):
 
 
 if __name__ == "__main__":
-    socketio.run(app, '127.0.0.1', allow_unsafe_werkzeug=True, debug=True)
+    socketio.run(app, allow_unsafe_werkzeug=True, debug=True, log_output=True)
