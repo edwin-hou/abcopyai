@@ -1,4 +1,4 @@
-var socket = io.connect({'force new connection': true, transports: ['websocket', 'Flash Socket', 'AJAX long-polling']})
+var socket = io.connect({'force new connection': true, secure: true,transports: ['websocket', 'Flash Socket', 'AJAX long-polling']})
 console.log(new Date().toLocaleString(), socket)
 socket.on('connect', function () {
     console.log(new Date().toLocaleString(), "connected")
