@@ -67,9 +67,9 @@ def handle():
 def handle(user):
     print('getting data')
     # emit("data", "aaaa")
-    with open('static/database.json', 'r') as f:
-        data = json.load(f)
-        emit("data", data[user])
+    # with open('static/database.json', 'r') as f:
+    #     data = json.load(f)
+    #     emit("data", data[user])
 
 
 @socketio.on('mail')
