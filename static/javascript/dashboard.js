@@ -1,4 +1,4 @@
-var socket = io("ws://54.172.23.104/socketio")
+var socket = io() // "ws://54.172.23.104/socketio"
 console.log(socket)
 socket.on('connect', function () {
 console.log("a")
