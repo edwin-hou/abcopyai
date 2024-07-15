@@ -67,7 +67,7 @@ def handle():
 def handle(user):
     print('getting data')
     # emit("data", "aaaa")
-    with open('./static/database.json', 'r') as f:
+    with open('static/database.json', 'r') as f:
         data = json.load(f)
         emit("data", data[user])
 
@@ -86,4 +86,4 @@ def handle(stuff):
 
 
 if __name__ == "__main__":
-    socketio.run(app, port = 80, debug=True, log_output=True)
+    socketio.run(app, port = 8000, debug=True, log_output=True)
