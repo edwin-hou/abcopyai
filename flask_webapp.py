@@ -65,6 +65,7 @@ def handle():
 
 @socketio.on('get_data')
 def handle(user):
+    print('getting data')
     with open('static/database.json', 'r') as f:
         data = json.load(f)
         emit("data", data[user])
