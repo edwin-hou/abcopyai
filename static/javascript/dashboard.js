@@ -1,4 +1,4 @@
-var socket = io.connect({'force new connection': true, secure: true,transports: ['websocket', 'polling']})
+var socket = io.connect({'force new connection': true, transports: ['websocket']})
 console.log(new Date().toLocaleString(), socket)
 socket.on('connect', function () {
     console.log(new Date().toLocaleString(), "connected")
