@@ -14,3 +14,8 @@ socket.on('connect', function () {
 
     })
 })
+
+
+document.querySelector("video").addEventListener('ended', ()=>{
+    document.querySelector('video source').src = "brawl_clip" + Math.floor(Math.random() * (9 - 1 + 1) + 1);
+})
