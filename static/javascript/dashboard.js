@@ -1,4 +1,4 @@
-var socket = io.connect('http://54.172.23.104')
+var socket = io.connect()
 console.log(new Date().toLocaleString(), socket)
 socket.on('connect', function () {
     console.log(new Date().toLocaleString(), "connected")
