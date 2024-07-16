@@ -55,8 +55,9 @@ def spy_pixel(id):
 def handle():
     auth = authenticate()
     auth_url = next(auth)
+    print('aaaaa')
     emit("login_url", auth_url)
-    print(next(auth))
+    # print(next(auth))
     # response = ""
     # response = jsonify({'source_url': source_url, "author": author, "source": source, "date": date, "credibility": credibility})
     # response.headers.add('Access-Control-Allow-Origin', '*')

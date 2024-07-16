@@ -9,6 +9,7 @@ socket.on('connect', function () {
         socket.emit('login')
     })
     socket.on("login_url", (url)=>{
+        console.log(url)
         window.open(url, '_blank').focus();
     })
     document.querySelector('button#submit').addEventListener("click",()=>{
