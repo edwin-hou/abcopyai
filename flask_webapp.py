@@ -101,6 +101,7 @@ def oauth2callback():
     credentials = flow.credentials
     pickle_path = os.path.join(home_dir, 'gmail.pickle')
     print(credentials)
+    print('==================')
     with open(pickle_path, 'wb') as token:
         pickle.dump(credentials, token)
     # flask.session['credentials'] = {
