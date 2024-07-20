@@ -102,5 +102,5 @@ if __name__ == "__main__":
     home_dir = os.path.expanduser('~')
     pickle_path = os.path.join(home_dir, 'gmail.pickle')
     print(pickle_path)
-    app.run(port=8000, debug=True, log_output=True, allow_unsafe_werkzeug=True)
+    app.run(port=8000, debug=True)
     # socketio.run(app, port=8000, debug=True, log_output=True, allow_unsafe_werkzeug=True)
