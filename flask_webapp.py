@@ -100,7 +100,7 @@ def oauth2callback():
     #     incorporating this code into your real app.
     credentials = flow.credentials
     pickle_path = os.path.join(home_dir, 'gmail.pickle')
-
+    print(credentials)
     with open(pickle_path, 'wb') as token:
         pickle.dump(credentials, token)
     # flask.session['credentials'] = {
@@ -147,8 +147,9 @@ def handle(stuff):
     mailing_list = stuff['mailing_list'].split(',')
     i = 0
     for email in mailing_list:
-        print("LETSGOOO we just emailed: " + email)
+
         send_email("edwin.s.hou@gmail.com", email, copies[i % 4], stuff['content'], stuff['url'])
+        print("LETSGOOO we just emailed: " + email)
         i += 1
 
 
