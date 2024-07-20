@@ -100,6 +100,7 @@ def oauth2callback():
     #     incorporating this code into your real app.
     credentials = flow.credentials
     pickle_path = os.path.join(home_dir, 'gmail.pickle')
+
     with open(pickle_path, 'wb') as token:
         pickle.dump(credentials, token)
     # flask.session['credentials'] = {
@@ -152,4 +153,7 @@ def handle(stuff):
 
 
 if __name__ == "__main__":
+    home_dir = os.path.expanduser('~')
+    pickle_path = os.path.join(home_dir, 'gmail.pickle')
+    print(pickle_path)
     socketio.run(app, port=8000, debug=True, log_output=True, allow_unsafe_werkzeug=True)
