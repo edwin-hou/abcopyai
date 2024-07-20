@@ -76,7 +76,7 @@ def authorize():
 
     # Store the state in the session so that the callback can verify that
     # the authorization server response.
-    print('state')
+    print(state)
     flask.session['state'] = state
 
     return flask.redirect(authorization_url)
