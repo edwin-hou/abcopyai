@@ -112,7 +112,7 @@ def oauth2callback():
     #     'client_secret': credentials.client_secret,
     #     'scopes': credentials.scopes
     # }
-    return flask.redirect(flask.url_for('.u'))
+    return flask.redirect(flask.url_for('home'))
 
 
 # @socketio.on('login')
