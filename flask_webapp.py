@@ -7,7 +7,7 @@ import json
 import google_auth_oauthlib
 import flask
 import os
-
+import pickle
 os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1'
 
 app = Flask(__name__)
@@ -82,6 +82,7 @@ def authorize():
 
 @app.route('/oauth2callback')
 def oauth2callback():
+    home_dir = os.path.expanduser('~')
     # Specify the state when creating the flow in the callback so that it can
     # verify the authorization server response.
     state = flask.session['state']
@@ -98,29 +99,32 @@ def oauth2callback():
     #     Store user's access and refresh tokens in your data store if
     #     incorporating this code into your real app.
     credentials = flow.credentials
-    flask.session['credentials'] = {
-        'token': credentials.token,
-        'refresh_token': credentials.refresh_token,
-        'token_uri': credentials.token_uri,
-        'client_id': credentials.client_id,
-        'client_secret': credentials.client_secret,
-        'scopes': credentials.scopes
-    }
+    pickle_path = os.path.join(home_dir, 'gmail.pickle')
+    with open(pickle_path, 'wb') as token:
+        pickle.dump(credentials, token)
+    # flask.session['credentials'] = {
+    #     'token': credentials.token,
+    #     'refresh_token': credentials.refresh_token,
+    #     'token_uri': credentials.token_uri,
+    #     'client_id': credentials.client_id,
+    #     'client_secret': credentials.client_secret,
+    #     'scopes': credentials.scopes
+    # }
 
     return flask.redirect("/")
 
 
-@socketio.on('login')
-def handle():
-    auth = authenticate()
-    auth_url = next(auth)
-    print('aaaaa')
-    emit("login_url", auth_url)
-    # print(next(auth))
-    # response = ""
-    # response = jsonify({'source_url': source_url, "author": author, "source": source, "date": date, "credibility": credibility})
-    # response.headers.add('Access-Control-Allow-Origin', '*')
-    # print(source_url)
+# @socketio.on('login')
+# def handle():
+#     auth = authenticate()
+#     auth_url = next(auth)
+#     print('aaaaa')
+#     emit("login_url", auth_url)
+#     # print(next(auth))
+#     # response = ""
+#     # response = jsonify({'source_url': source_url, "author": author, "source": source, "date": date, "credibility": credibility})
+#     # response.headers.add('Access-Control-Allow-Origin', '*')
+#     # print(source_url)
 
 
 @socketio.on('get_data')
@@ -134,9 +138,11 @@ def handle(user):
 
 @socketio.on('mail')
 def handle(stuff):
-    copies = generate_copies(stuff['subject'])
+    # copies = generate_copies(stuff['subject'])
+    copies = [stuff['subject']]
     copies.append(stuff['subject'])
     print(copies)
+    print(stuff["url"])
     mailing_list = stuff['mailing_list'].split(',')
     i = 0
     for email in mailing_list:

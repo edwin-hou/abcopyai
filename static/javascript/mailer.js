@@ -6,12 +6,11 @@ var socket = io.connect({'force new connection': true, transports:["polling"]})
 socket.on('connect', function () {
 
     document.querySelector('button#login').addEventListener("click",()=>{
-        socket.emit('login')
+
+        window.location.href = "http://"+window.location.host + "/authorize"
+
     })
-    socket.on("login_url", (url)=>{
-        console.log(url)
-        window.open(url, '_blank').focus();
-    })
+
     document.querySelector('button#submit').addEventListener("click",()=>{
     let subject = document.querySelector('input#subject').value
     let content = document.querySelector('textarea#content').value
