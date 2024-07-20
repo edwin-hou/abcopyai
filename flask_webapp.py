@@ -75,7 +75,7 @@ def authorize():
 
     # Store the state in the session so that the callback can verify that
     # the authorization server response.
-    # flask.session['state'] = state
+    flask.session['state'] = state
 
     return flask.redirect(authorization_url)
 
@@ -85,9 +85,9 @@ def oauth2callback():
     home_dir = os.path.expanduser('~')
     # Specify the state when creating the flow in the callback so that it can
     # verify the authorization server response.
-    # state = flask.session['state']
+    state = flask.session['state']
     flow = google_auth_oauthlib.flow.Flow.from_client_secrets_file(
-        "credentials.json", scopes=SCOPES)
+        "credentials.json", scopes=SCOPES, state=state)
     flow.redirect_uri = flask.url_for('oauth2callback', _external=True)
 
     # Use the authorization server's response to fetch the OAuth 2.0 tokens.
