@@ -8,13 +8,15 @@ import google_auth_oauthlib
 import flask
 import os
 import pickle
-os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1'
 
 app = Flask(__name__)
 app.secret_key = 'superfi secret key'
 
 socketio = SocketIO(app)
 socketio.init_app(app, cors_allowed_origins="*")
+
+SCOPES = ['https://www.googleapis.com/auth/gmail.send',
+              'https://www.googleapis.com/auth/gmail.modify']
 
 
 @app.route('/mailer')
@@ -55,8 +57,6 @@ def spy_pixel(id):
 
     return send_file("static/spy.gif", mimetype="image/png")
 
-SCOPES = ['https://www.googleapis.com/auth/gmail.send',
-              'https://www.googleapis.com/auth/gmail.modify']
 
 @app.route('/authorize')
 def authorize():
@@ -156,7 +156,5 @@ def handle(stuff):
 
 
 if __name__ == "__main__":
-    home_dir = os.path.expanduser('~')
-    pickle_path = os.path.join(home_dir, 'gmail.pickle')
-    print(pickle_path)
+    os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1'
     socketio.run(app, port=8000, debug=True, log_output=True, allow_unsafe_werkzeug=True)
