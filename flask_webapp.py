@@ -180,6 +180,6 @@ def handle(stuff):
 
 if __name__ == "__main__":
 
-    print(os.path.join(os.path.expanduser('~'), 'gmail.pickle'))
+    # print(os.path.join(os.path.expanduser('~'), 'gmail.pickle'))
     os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1'
     socketio.run(app, port=8000, debug=True, log_output=True, allow_unsafe_werkzeug=True)

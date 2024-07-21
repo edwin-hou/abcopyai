@@ -14,12 +14,11 @@ import json
 
 # Create a message
 def send_email(user, my_email, my_subject, msgPlain, url):
-    home_dir = os.path.expanduser('~')
-    pickle_path = os.path.join(home_dir, 'gmail.pickle')
-
+    # home_dir = os.path.expanduser('~')
+    # pickle_path = os.path.join(home_dir, 'gmail.pickle')
+    pickle_path = 'gmail.pickle'
     # Load our pickled credentials
     creds = pickle.load(open(pickle_path, 'rb'))
-
     # Build the service
     service = googleapiclient.discovery.build('gmail', 'v1', credentials=creds)
 
