@@ -71,6 +71,7 @@ def spy_pixel(id):
         for user in data.keys():
             for email in data[user]:
                 if email["id"] == int(id):
+                    print('email was just opened')
                     email["opened"] = True
 
         f.seek(0)  # <--- should reset file position to the beginning.
