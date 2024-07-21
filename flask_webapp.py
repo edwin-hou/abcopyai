@@ -4,7 +4,7 @@ from send_email import send_email
 from authenticate import authenticate
 from copy_ai import generate_copies
 import json
-import google_auth_oauthlib
+from google_auth_oauthlib.flow import Flow
 import flask
 import os
 import pickle
@@ -17,6 +17,26 @@ socketio.init_app(app, cors_allowed_origins="*")
 
 SCOPES = ['https://www.googleapis.com/auth/gmail.send',
               'https://www.googleapis.com/auth/gmail.modify']
+flow = Flow.from_client_secrets_file(
+    client_secrets_file="credentials.json",
+    scopes=SCOPES,
+    redirect_uri="http://127.0.0.1:8000/callback",
+    # code="4/0AcvDMrBRScxC--tBzsMjH8YYvx2KC_E6RXvPDUCH8J4jchTWHvuCOc0857um6q9D9XQsrA"
+)
+
+@app.route('/authorize')
+def login():
+    authorization_url, state = flow.authorization_url()
+    # session["state"] = state
+    return flask.redirect(authorization_url)
+
+@app.route("/callback")
+def callback():
+    flow.fetch_token(authorization_response=request.url)
+
+    credentials = flow.credentials
+    print(credentials)
+    return flask.redirect("/")
 
 
 @app.route('/mailer')
@@ -58,63 +78,64 @@ def spy_pixel(id):
     return send_file("static/spy.gif", mimetype="image/png")
 
 
-@app.route('/authorize')
-def authorize():
-    # Create a flow instance to manage the OAuth 2.0 Authorization Grant Flow
-    # steps.
+# @app.route('/authorize')
+# def authorize():
+#     # Create a flow instance to manage the OAuth 2.0 Authorization Grant Flow
+#     # steps.
+#     flow = google_auth_oauthlib.flow.Flow.from_client_secrets_file(
+#         "credentials.json", scopes=SCOPES)
+#     flow.redirect_uri = flask.url_for('oauth2callback', _external=True, code="4/0AcvDMrBRScxC--tBzsMjH8YYvx2KC_E6RXvPDUCH8J4jchTWHvuCOc0857um6q9D9XQsrA")
+#     #"4/0AcvDMrBRScxC--tBzsMjH8YYvx2KC_E6RXvPDUCH8J4jchTWHvuCOc0857um6q9D9XQsrA"
+#     authorization_url, state = flow.authorization_url(
+#         # This parameter enables offline access which gives your application
+#         # both an access and refresh token.
+#         access_type='offline',
+#         # This parameter enables incremental auth.
+#         include_granted_scopes='true')
+#
+#     # Store the state in the session so that the callback can verify that
+#     # the authorization server response.
+#     print(state)
+#     flask.session['state'] = state
+#
+#     return flask.redirect(authorization_url)
+#
+#
+# @app.route('/oauth2callback')
+# def oauth2callback():
+#     home_dir = os.path.expanduser('~')
+#     # Specify the state when creating the flow in the callback so that it can
+#     # verify the authorization server response.
+#     state = flask.session['state']
+#     flow = google_auth_oauthlib.flow.Flow.from_client_secrets_file(
+#         "credentials.json", scopes=SCOPES, state=state)
+#     flow.redirect_uri = flask.url_for('oauth2callback', _external=True, code="4/0AcvDMrBRScxC--tBzsMjH8YYvx2KC_E6RXvPDUCH8J4jchTWHvuCOc0857um6q9D9XQsrA")
+#
+#     # Use the authorization server's response to fetch the OAuth 2.0 tokens.
+#     authorization_response = flask.request.url
+#     flow.fetch_token(authorization_response=authorization_response)
+#
+#     # Store the credentials in the session.
+#     # ACTION ITEM for developers:
+#     #     Store user's access and refresh tokens in your data store if
+#     #     incorporating this code into your real app.
+#     credentials = flow.credentials
+#     pickle_path = os.path.join(home_dir, 'gmail.pickle')
+#     print(credentials)
+#     print('==================')
+#     with open(pickle_path, 'wb') as token:
+#         pickle.dump(credentials, token)
+#     # flask.session['credentials'] = {
+#     #     'token': credentials.token,
+#     #     'refresh_token': credentials.refresh_token,
+#     #     'token_uri': credentials.token_uri,
+#     #     'client_id': credentials.client_id,
+#     #     'client_secret': credentials.client_secret,
+#     #     'scopes': credentials.scopes
+#     # }
+#     return flask.redirect("http://54.172.23.104/")
 
-    flow = google_auth_oauthlib.flow.Flow.from_client_secrets_file(
-        "credentials.json", scopes=SCOPES)
-    flow.redirect_uri = flask.url_for('oauth2callback', _external=True, code="4/0AcvDMrBRScxC--tBzsMjH8YYvx2KC_E6RXvPDUCH8J4jchTWHvuCOc0857um6q9D9XQsrA")
-    #"4/0AcvDMrBRScxC--tBzsMjH8YYvx2KC_E6RXvPDUCH8J4jchTWHvuCOc0857um6q9D9XQsrA"
-    authorization_url, state = flow.authorization_url(
-        # This parameter enables offline access which gives your application
-        # both an access and refresh token.
-        access_type='offline',
-        # This parameter enables incremental auth.
-        include_granted_scopes='true')
 
-    # Store the state in the session so that the callback can verify that
-    # the authorization server response.
-    print(state)
-    flask.session['state'] = state
-
-    return flask.redirect(authorization_url)
-
-
-@app.route('/oauth2callback')
-def oauth2callback():
-    home_dir = os.path.expanduser('~')
-    # Specify the state when creating the flow in the callback so that it can
-    # verify the authorization server response.
-    state = flask.session['state']
-    flow = google_auth_oauthlib.flow.Flow.from_client_secrets_file(
-        "credentials.json", scopes=SCOPES, state=state)
-    flow.redirect_uri = flask.url_for('oauth2callback', _external=True, code="4/0AcvDMrBRScxC--tBzsMjH8YYvx2KC_E6RXvPDUCH8J4jchTWHvuCOc0857um6q9D9XQsrA")
-
-    # Use the authorization server's response to fetch the OAuth 2.0 tokens.
-    authorization_response = flask.request.url
-    flow.fetch_token(authorization_response=authorization_response)
-
-    # Store the credentials in the session.
-    # ACTION ITEM for developers:
-    #     Store user's access and refresh tokens in your data store if
-    #     incorporating this code into your real app.
-    credentials = flow.credentials
-    pickle_path = os.path.join(home_dir, 'gmail.pickle')
-    print(credentials)
-    print('==================')
-    with open(pickle_path, 'wb') as token:
-        pickle.dump(credentials, token)
-    # flask.session['credentials'] = {
-    #     'token': credentials.token,
-    #     'refresh_token': credentials.refresh_token,
-    #     'token_uri': credentials.token_uri,
-    #     'client_id': credentials.client_id,
-    #     'client_secret': credentials.client_secret,
-    #     'scopes': credentials.scopes
-    # }
-    return flask.redirect("http://54.172.23.104/")
 
 
 # @socketio.on('login')
