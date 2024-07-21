@@ -71,6 +71,7 @@ def spy_pixel(id):
         for user in data.keys():
             for email in data[user]:
                 if email["id"] == int(id):
+                    print("email may have been opened")
                     if email['opened'] == False:
                         email["opened"] = "sent, not opened yet"
                     if email['opened'] == "sent, not opened yet":
