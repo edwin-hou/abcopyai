@@ -71,8 +71,10 @@ def spy_pixel(id):
         for user in data.keys():
             for email in data[user]:
                 if email["id"] == int(id):
-                    print('email was just opened')
-                    email["opened"] = True
+                    if email['opened'] == False:
+                        email["opened"] = "sent, not opened yet"
+                    if email['opened'] == "sent, not opened yet":
+                        email['opened'] = True
 
         f.seek(0)  # <--- should reset file position to the beginning.
         json.dump(data, f, indent=4)
