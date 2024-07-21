@@ -20,7 +20,9 @@ SCOPES = ['https://www.googleapis.com/auth/gmail.send',
 flow = Flow.from_client_secrets_file(
     client_secrets_file="credentials.json",
     scopes=SCOPES,
-    redirect_uri="http://127.0.0.1:8000/callback",
+    redirect_uri="http://54.172.23.104/callback",
+    # http://127.0.0.1:8000/callback
+    # http://54.172.23.104/callback
     # code="4/0AcvDMrBRScxC--tBzsMjH8YYvx2KC_E6RXvPDUCH8J4jchTWHvuCOc0857um6q9D9XQsrA"
 )
 
