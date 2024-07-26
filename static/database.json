@@ -1,2 +1,13 @@
 {
+    "edwin.s.hou@gmail.com": [
+        {
+            "id": 5564105493,
+            "email": "edwin.s.hou@gmail.com",
+            "subject": "test",
+            "content": "test",
+            "opened": false,
+            "reply": false,
+            "clickthrough": false
+        }
+    ]
 }

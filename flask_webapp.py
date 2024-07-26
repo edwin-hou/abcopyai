@@ -56,6 +56,10 @@ def dashboard():
 def home():
     return render_template('landing.html')
 
+@app.route('/pricing')
+def price():
+    return render_template('price.html')
+
 
 @app.route('/email_open', methods=['POST', 'GET'])
 def email_open():
